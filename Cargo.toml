@@ -1,0 +1,30 @@
+[package]
+name = "video_cleaner"
+version = "0.1.0"
+edition = "2021"
+authors = ["David Liu <liurui81@gmail.com>"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[build-dependencies]
+cc = { version = "1.0", features = ["parallel"] }
+
+[dependencies]
+clap = { version = "3.1.18", features = ["derive"] }
+colored = "2"
+postgres= "0.19.2"
+tokio-postgres = { version="0.7.4", features=["with-chrono-0_4"] }
+
+[dependencies.tokio]
+features = ["rt", "time"]
+version = "1.0"
+
+[dependencies.chrono]
+version = "0.4.19"
+features = ["serde"]
+
+[features]
+array-impls = ["tokio-postgres/array-impls"]
+with-time-0_2 = ["tokio-postgres/with-time-0_2"]
+with-time-0_3 = ["tokio-postgres/with-time-0_3"]
+with-uuid-0_8 = ["tokio-postgres/with-uuid-0_8"]
+with-chrono-0_4 = ["tokio-postgres/with-chrono-0_4"]
