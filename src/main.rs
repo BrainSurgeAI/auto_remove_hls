@@ -1,5 +1,5 @@
 use std::net::Ipv4Addr;
-use std::ffi::{CString, CStr};
+use std::ffi::CString;
 use std::os::raw::c_char;
 use postgres::{Client, NoTls, Error};
 use std::path::PathBuf;
@@ -8,7 +8,8 @@ use chrono::prelude::*;
 
 extern "C" {
     fn has_enough_space(path: *const c_char) -> bool;
-    fn remove_list(path: *const c_char) -> *const *const c_char;
+    // fn remove_list(path: *const c_char) -> *const *const c_char;
+    fn remove_files(dir: *const c_char, file_date: *const c_char) -> bool;
 }
 
 #[derive(Parser, Debug)]
@@ -43,9 +44,13 @@ fn main() -> Result<(), Error> {
                     date: row.get(0)
                 };
                 println!("{}", video.date);
+                let date = CString::new(video.date.to_string()).unwrap();
+                let c_date = date.as_ptr() as *const c_char;
+                remove_files(c_path, c_date);
             }
         }
     }
-        
+    
+    //client.close();
     Ok(())
 }
