@@ -1,0 +1,12 @@
+version: '3.5'
+
+services:
+  vod-manager-db:
+    build: .
+    container_name: "vod-manager-db"
+    environment:
+      - POSTGRES_USER=${postgres_username}
+      - POSTGRES_PASSWORD=${postgres_password}
+      - POSTGRES_DB=${postgres_db}
+    ports:
+      - "5432:5432"

@@ -7,6 +7,9 @@
 #include <string>
 
 static const double THRESHOLD = 0.2;
+static const size_t RETURN_NUM = 5;
+std::vector<const char*> p{};
+
 using namespace std;
 
 template <typename TP>
@@ -22,6 +25,15 @@ extern "C"
 {
 #endif
     bool has_enough_space(const char *dir);
+#ifdef __cplusplus
+}
+#endif
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+    const char** remove_list(const char* dir);
 #ifdef __cplusplus
 }
 #endif

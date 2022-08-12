@@ -2,7 +2,7 @@
 name = "video_cleaner"
 version = "0.1.0"
 edition = "2021"
-authors = ["David Liu <liurui81@gmail.com>"]
+authors = ["Chernobyl81 <liurui81@gmail.com>"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [build-dependencies]
