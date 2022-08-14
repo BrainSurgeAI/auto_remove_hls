@@ -7,7 +7,7 @@
 #include <string>
 #include <regex>
 
-static const double THRESHOLD = 0.2;
+//static const double THRESHOLD = 0.2;
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -21,7 +21,7 @@ time_t to_time_t(TP tp)
 }
 
 
-std::vector<fs::path> file_list(fs::path dir, std::regex ext_pattern)
+std::vector<fs::path> file_list(fs::path dir, std::regex pattern)
 {
     std::vector<fs::path> result ;
 
@@ -31,19 +31,18 @@ std::vector<fs::path> file_list(fs::path dir, std::regex ext_pattern)
     for( iterator iter { dir } ; iter != end ; ++iter )
     {
         // const std::string extension = iter->path().extension().string() ;
-        //std::cout <<  iter->path().string() << std::endl;
-        if ( fs::is_regular_file(*iter) && std::regex_search( iter->path().string(), ext_pattern ) ) 
+        if ( fs::is_regular_file(*iter) && std::regex_search( iter->path().string(), pattern ) ) 
             result.push_back( *iter ) ;
     }
     
-    return result ;
+    return result;
 }
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-    bool has_enough_space(const char *dir);
+    bool has_enough_space(const char *dir, u_int8_t threshold);
 #ifdef __cplusplus
 }
 #endif
@@ -52,7 +51,7 @@ extern "C"
 extern "C"
 {
 #endif
-    bool remove_files(const char* dir, const char* file_date);
+    size_t remove_files(const char* dir, const char* file_date);
 #ifdef __cplusplus
 }
 #endif

@@ -4,7 +4,7 @@
 extern "C"
 {
 #endif
-    bool has_enough_space(const char *dir)
+    bool has_enough_space(const char *dir, u_int8_t threshold)
     {
         std::error_code ec;
         const std::filesystem::space_info si = std::filesystem::space(dir, ec);
@@ -14,7 +14,7 @@ extern "C"
             exit(EXIT_FAILURE);
         }
 
-        return static_cast<double>(si.available) / si.capacity > THRESHOLD;
+        return static_cast<double>(si.available) / si.capacity > threshold;
     }
 #ifdef __cplusplus
 }
@@ -24,17 +24,15 @@ extern "C"
 extern "C"
 {
 #endif
-    bool remove_files(const char* dir, const char *file_date)
+    size_t remove_files(const char* dir, const char *file_date)
     {
-        std::string str(file_date);
-        const std::regex date_regex("20210808");
-
-        for (const auto& file_path : file_list(dir, date_regex)) {
+        std::string str(file_date);   // 20210808
+        size_t removed = 0;
+        for (const auto& file_path : file_list(dir, std::regex(str))) {
             std::cout << file_path << std::endl;
-            std::filesystem::remove(file_path);
+            if (std::filesystem::remove(file_path)) removed++;
         }
-
-        return true;
+        return removed;
     }
 #ifdef __cplusplus
 }
