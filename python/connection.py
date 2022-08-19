@@ -1,7 +1,8 @@
 import psycopg2
 from config import config
+from stmt import read_file
 
-def connect():
+def connect(s):
     """ Connect to the PostgreSQL database server """
     conn = None
     try:
@@ -14,15 +15,8 @@ def connect():
 		
         # create a cursor
         cur = conn.cursor()
-        
-	# execute a statement
-        print('PostgreSQL database version:')
-        cur.execute('SELECT version()')
-
-        # display the PostgreSQL database server version
-        db_version = cur.fetchone()
-        print(db_version)
-       
+        cur.execute(s)
+        conn.commit()       
 	# close the communication with the PostgreSQL
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
@@ -34,4 +28,6 @@ def connect():
 
 
 if __name__ == '__main__':
-    connect()
+    stms = read_file("../filelist.txt")
+    for s in stms:
+        connect(s)
