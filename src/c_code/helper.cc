@@ -14,7 +14,7 @@ extern "C"
             exit(EXIT_FAILURE);
         }
 
-        return static_cast<double>(si.available) / si.capacity > threshold;
+        return static_cast<double>(si.available) / si.capacity > threshold / 100;
     }
 #ifdef __cplusplus
 }
@@ -26,7 +26,8 @@ extern "C"
 #endif
     size_t remove_files(const char* dir, const char *file_date)
     {
-        std::string str(file_date);   // 20210808
+        std::cout << "remove " << file_date << std::endl;
+        std::string str(file_date);   // 2021-0808
         size_t removed = 0;
         for (const auto& file_path : file_list(dir, std::regex(str))) {
             std::cout << file_path << std::endl;

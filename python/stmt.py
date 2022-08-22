@@ -4,15 +4,6 @@ import hashlib
 from tokenize import String
 from typing import List
 
-# class Stmt:
-#     def __init__(self, id, room, date, url, thumbnail) -> None:
-#         self.id = id
-#         self.room = room
-#         self.date = date
-#         self.url = url
-#         self.thumbnail = thumbnail
-
-
 def read_file(filename) -> List:
     stmts = []
     with open(filename, 'r') as f:
@@ -45,10 +36,7 @@ def create_stmt(line) -> str:
             timestamp = "{}-{}-{} {}:{}:{}".format(year, month, day, hour, minute, second)
         else:
             continue
-    
-    stmt = "INSERT INTO video(id, room, date, url, thumbnail) VALUES('{}', '{}', TIMESTAMP '{}', '{}', '{}');".format(id, room, timestamp, url, thumbnail)
-    print(stmt)
-    return stmt
+    return "INSERT INTO video(id, room, date, url, thumbnail) VALUES('{}', '{}', TIMESTAMP '{}', '{}', '{}');".format(id, room, timestamp, url, thumbnail)
             
             
             
