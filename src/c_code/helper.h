@@ -7,10 +7,15 @@
 #include <string>
 #include <regex>
 
-//static const double THRESHOLD = 0.2;
-
 using namespace std;
 namespace fs = std::filesystem;
+
+struct FilesystemInfo
+{
+    float available_space;
+    char* error_msg;
+    int error_code;
+};
 
 template <typename TP>
 time_t to_time_t(TP tp)
