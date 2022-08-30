@@ -2,6 +2,7 @@ import psycopg2
 from config import config
 from stmt import read_file
 
+
 def connect(s):
     """ Connect to the PostgreSQL database server """
     conn = None
@@ -28,6 +29,10 @@ def connect(s):
 
 
 if __name__ == '__main__':
-    stms = read_file("../filelist.txt")
-    for s in stms:
+    # stms = read_file("../filelist.txt")
+    # for s in stms:
+    #     connect(s)
+    removed_dir = "/Users/david/Desktop/encrypt_hls"
+    stmts = read_file(removed_dir)
+    for s in stmts:
         connect(s)

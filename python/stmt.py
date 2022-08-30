@@ -1,16 +1,14 @@
 from ast import Str, stmt
-
+import os
 import hashlib
 from tokenize import String
 from typing import List
 
 def read_file(filename) -> List:
     stmts = []
-    with open(filename, 'r') as f:
-        for line in f:
-           stmts.append(create_stmt(line))
-    f.close()
-
+    for file in  os.listdir(filename):
+        if file.endswith(".m3u8"):
+            stmts.append(create_stmt(file))
     return stmts
 
 def create_stmt(line) -> str:
