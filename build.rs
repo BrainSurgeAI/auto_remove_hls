@@ -3,7 +3,7 @@ extern crate cc;
 fn main() {
     cc::Build::new()
         .cpp(true)
-        .include("src/c_code/helper.h")
+        .include("src/c_code")
         .file("src/c_code/helper.cc")
         .flag_if_supported("-std=c++17")
         .shared_flag(true)

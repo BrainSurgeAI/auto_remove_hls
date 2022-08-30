@@ -6,9 +6,16 @@ extern "C"
 #endif
     bool has_enough_space(const char *dir, u_int8_t threshold)
     {
-        const std::filesystem::space_info si = std::filesystem::space(dir);
-        if (std::filesystem::is_empty(dir)) 
+        std::error_code ec;
+        const std::filesystem::space_info si = std::filesystem::space(dir, ec);
+        if (ec.value() != 0 ) {
+            std::cout << "filesystem error: [" << ec.value() << "] " << ec.message() << std::endl;
             return true;
+        }
+        if (std::filesystem::is_empty(dir)) {
+            std::cout << dir << " is empty\n"; 
+            return true;
+        }    
         
         return static_cast<double>(si.available) / si.capacity > threshold / 100;
     }

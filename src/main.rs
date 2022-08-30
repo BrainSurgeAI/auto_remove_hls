@@ -104,11 +104,11 @@ fn main() -> Result<(), SetLoggerError> {
                                 let date = CString::new(date_string).unwrap();
                                 let c_date = date.as_ptr() as *const c_char;
                 
-                                remove_files(c_path, c_date);
+                                info!("Remove {} files", remove_files(c_path, c_date));
                                 
                                 let query = format!("DELETE FROM video where TO_CHAR(date::DATE, 'yyyy-mm-dd') = '{}'", condition);
                                 match client.query(&query, &[]) {
-                                    Ok(_) => info!("Delete rows which date equals {}", condition),
+                                    Ok(_) => info!("Delete records which date equals {}", condition),
                                     Err(e) => error!("Execute sql {} {}", &query, e)
                                 }
                                 
