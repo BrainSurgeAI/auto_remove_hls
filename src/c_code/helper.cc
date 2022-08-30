@@ -17,6 +17,7 @@ extern "C"
             return true;
         }    
         
+        std::cout << "available " << static_cast<double>(si.available) / si.capacity << std::endl; 
         return static_cast<double>(si.available) / si.capacity > threshold / 100;
     }
 #ifdef __cplusplus
